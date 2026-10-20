@@ -7,7 +7,12 @@ import store from './redux/store.jsx'
 import {Provider} from 'react-redux'
 import axios from 'axios'
 
-const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/+$/, '');
+const API_BASE_URL = (
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.DEV ? 'http://localhost:3000' : 'https://food-waste-backend1.vercel.app')
+).replace(/\/+$/, '');
+
+axios.defaults.baseURL = API_BASE_URL;
 
 axios.interceptors.request.use((config) => {
   if (config.url && config.url.includes('http://localhost:3000')) {
